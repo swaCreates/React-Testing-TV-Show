@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Dropdown from "react-dropdown";
 import parse from "html-react-parser";
 import {fetchShow} from './api/fetchShow';
@@ -19,7 +18,8 @@ export default function App() {
   //this was changed to use fetchShow from api folder
   // acts just like an api call
   useEffect(() => {
-    fetchShow().then(res => {
+    fetchShow()
+    .then(res => {
       setShow(res.data);
       setSeasons(formatSeasons(res.data._embedded.episodes));
     });
@@ -39,6 +39,7 @@ export default function App() {
       <h1>{show.name}</h1>
       {parse(show.summary)}
       <Dropdown
+        data-testid= 'dropdown'
         options={Object.keys(seasons)}
         onChange={handleSelect}
         value={selectedSeason || "Select a season"}
